@@ -1,16 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+    public Animator animator;
+
     private Transform target;
 
     [Header("Turret attributes")]
     public float range = 4f;
-    public float turnSpeed = 10f;
     public float fireRate = 1f;
-    public float fireCoutdown = 0f;
+    public float fireCountdown = 0f;
     public float damage = 1f;
     public int cost = 50;
     public GameObject bullet;
@@ -35,11 +37,11 @@ public class Turret : MonoBehaviour
                 closestEnemy = enemy;
             }
         }
+
         if(closestEnemy != null && shortestDist <= range)
         {
             target = closestEnemy.transform;
-        } else
-        {
+        } else {
             target = null;
         }
     }
@@ -47,21 +49,27 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        fireCoutdown -= Time.deltaTime;
-
+        fireCountdown -= Time.deltaTime;
         if (target == null)
+        {
+            animator.SetBool("IsAttacking", false);
             return;
+        }
 
-        Vector2 dirToEnemy = target.position - transform.position;
-        Quaternion lookRotation = Quaternion.LookRotation(dirToEnemy);
-        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotation.z);
+        animator.SetBool("IsAttacking", true);
 
-        //Can fire
-        if(fireCoutdown <= 0f)
+        // if enemy is left of defender, do a left flip
+        if (transform.position.x > target.position.x)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        // flip right
+        else
+            transform.rotation = Quaternion.Euler(0, 180f, 0);
+
+        // Can fire
+        if(fireCountdown <= 0f)
         {
             Shoot();
-            fireCoutdown = 1f / fireRate;
+            fireCountdown = 1f / fireRate;
         }
     }
 

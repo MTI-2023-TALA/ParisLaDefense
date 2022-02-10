@@ -549,7 +549,7 @@ MonoBehaviour:
   - path
   - border
   - tower
-  turret: {fileID: 2890258967554887701, guid: b2df9a7c20a67b24ead6599f1802a8be, type: 3}
+  turret: {fileID: 5762991032398145227, guid: e306d37ddc1600244a83f548bf659902, type: 3}
 --- !u!114 &1938849999
 MonoBehaviour:
   m_ObjectHideFlags: 0
