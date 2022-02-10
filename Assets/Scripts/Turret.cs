@@ -12,6 +12,7 @@ public class Turret : MonoBehaviour
     public float fireRate = 1f;
     public float fireCoutdown = 0f;
     public float damage = 1f;
+    public int cost = 50;
     public GameObject bullet;
 
     [Header("Enemy attributes")]

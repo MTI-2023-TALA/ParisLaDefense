@@ -19,6 +19,13 @@ public class TileMapManager : MonoBehaviour
 
     public GameObject turret;
 
+    private DataManager dataManager;
+
+    private void Start()
+    {
+        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+    }
+
     public void Update()
     {
         // Handle click event 
@@ -28,8 +35,7 @@ public class TileMapManager : MonoBehaviour
             TileBase tileBase = getTileBase(mousePos);
             if (tileBase.name == tileName[(int)TileType.GRASS])
             {
-                tileMap.SetTile(mousePos, tileList[(int)TileType.TOWER]);
-                Instantiate(turret, new Vector2(mousePos.x + 0.5f, mousePos.y + 0.5f), Quaternion.identity);
+                SpawnTurret(mousePos);
             }
         }
     }
@@ -48,4 +54,12 @@ public class TileMapManager : MonoBehaviour
         return Vector3Int.FloorToInt(worldPos);
     }
 
+    private void SpawnTurret(Vector3Int mousePos)
+    {
+        if (dataManager.RemoveGold(turret.GetComponent<Turret>().cost))
+        {
+            tileMap.SetTile(mousePos, tileList[(int)TileType.TOWER]);
+            Instantiate(turret, new Vector2(mousePos.x + 0.5f, mousePos.y + 0.5f), Quaternion.identity);
+        }
+    }
 }

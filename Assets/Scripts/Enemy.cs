@@ -9,15 +9,33 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float speed = 2f;
     public float life = 2f;
+    public int gold = 10;
+
+    private DataManager dataManager;
+
     private int index = 0;
 
-    private void Start()
+    public void Init(List<Vector3> waypoints)
     {
         // Get waypoint to follow
-        waypoints = GameObject.Find("EnemyWaypointManager").GetComponent<EnemyWaypointManager>().waypoints;
+        this.waypoints = waypoints;
+        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+
 
         // Teleport enemy to first waypoint
         transform.position = waypoints[index];
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag != "Castle")
+        {
+            return;
+        }
+
+        dataManager.TakeDamage();
+
+        Destroy(gameObject);
     }
 
     private void Update()
@@ -48,8 +66,8 @@ public class Enemy : MonoBehaviour
         life -= damage;
         if(life <= 0f)
         {
+            dataManager.AddGold(gold);
             Destroy(gameObject);
         }
     }
-
 }
