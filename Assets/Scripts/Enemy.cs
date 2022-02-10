@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Tilemap tileMap;
 
     [SerializeField] private float speed = 2f;
+    public float life = 2f;
     private int index = 0;
 
     private void Start()
@@ -39,6 +40,15 @@ public class Enemy : MonoBehaviour
             {
                 index++;
             }
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        life -= damage;
+        if(life <= 0f)
+        {
+            Destroy(gameObject);
         }
     }
 

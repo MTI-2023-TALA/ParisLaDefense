@@ -17,6 +17,8 @@ public class TileMapManager : MonoBehaviour
     [SerializeField] private Tile[] tileList;
     [SerializeField] private string[] tileName;
 
+    public GameObject turret;
+
     public void Update()
     {
         // Handle click event 
@@ -27,6 +29,7 @@ public class TileMapManager : MonoBehaviour
             if (tileBase.name == tileName[(int)TileType.GRASS])
             {
                 tileMap.SetTile(mousePos, tileList[(int)TileType.TOWER]);
+                Instantiate(turret, new Vector2(mousePos.x + 0.5f, mousePos.y + 0.5f), Quaternion.identity);
             }
         }
     }
