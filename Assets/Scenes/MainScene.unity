@@ -620,6 +620,7 @@ MonoBehaviour:
   tilemap: {fileID: 2070575372}
   enemyList:
   - {fileID: 7299694117303921080, guid: c568ab8ed02623b4c8713c6d75db6eb1, type: 3}
+  - {fileID: 50850410495724354, guid: 1d460dd4b09839449bcdc17072d4dd9d, type: 3}
   waveCountdown: 5
 --- !u!114 &1938850000
 MonoBehaviour:

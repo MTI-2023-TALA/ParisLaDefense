@@ -71,7 +71,6 @@ public class EnemyManager : MonoBehaviour
                 yield return new WaitForSeconds(timeBetweenEnemy);
             }
             waveNumber++;
-            
         }
     }
 

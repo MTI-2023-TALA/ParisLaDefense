@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -12,6 +13,7 @@ public class Enemy : MonoBehaviour
     public int gold = 10;
 
     private DataManager dataManager;
+    public SpriteRenderer spriteRenderer;
 
     private int index = 0;
 
@@ -28,14 +30,19 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != Tag.castle)
+        if (collision.gameObject.tag == Tag.bullet)
         {
-            return;
+            dataManager.TakeDamage();
+            Destroy(gameObject);
         }
 
-        dataManager.TakeDamage();
+        return;
 
-        Destroy(gameObject);
+        //if (collision.gameObject.tag != Tag.castle)
+        //    return;
+
+        //dataManager.TakeDamage();
+        //Destroy(gameObject);
     }
 
     private void Update()
@@ -70,11 +77,20 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        StartCoroutine(FlashRed());
         life -= damage;
-        if(life <= 0f)
+
+        if (life <= 0f)
         {
             dataManager.AddGold(gold);
             Destroy(gameObject);
         }
+    }
+
+    public IEnumerator FlashRed()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.color = Color.white;
     }
 }

@@ -103,6 +103,7 @@ MonoBehaviour:
   speed: 2
   life: 5
   gold: 10
+  spriteRenderer: {fileID: 6321530543675818159}
 --- !u!61 &6433770891013973714
 BoxCollider2D:
   m_ObjectHideFlags: 0
