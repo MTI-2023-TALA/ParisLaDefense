@@ -36,13 +36,15 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (collision.gameObject.tag == Tag.castle)
+        {
+
+            dataManager.TakeDamage();
+            Destroy(gameObject);
+        }
+
         return;
 
-        //if (collision.gameObject.tag != Tag.castle)
-        //    return;
-
-        //dataManager.TakeDamage();
-        //Destroy(gameObject);
     }
 
     private void Update()

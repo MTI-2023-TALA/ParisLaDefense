@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 // If you update enum dont forget to update tileList and tileName
 public enum TileType: int
@@ -20,22 +21,35 @@ public class TileMapManager : MonoBehaviour
     public GameObject turret;
 
     private DataManager dataManager;
+    private TowerUIManager towerUIManager;
+
+    public Button btnSpawnTurret;
+    private Vector3Int lastClickPosition;
 
     private void Start()
     {
         dataManager = GameObject.Find(ObjectName.gameManager).GetComponent<DataManager>();
+        towerUIManager = GameObject.Find(ObjectName.gameManager).GetComponent<TowerUIManager>();
+        towerUIManager.removeTowerUI();
+        btnSpawnTurret.onClick.AddListener(SpawnTurret);
     }
 
-    public void Update()
+    private void Update()
     {
         // Handle click event 
         if (Input.GetButtonDown("Fire1"))
         {
+            if (towerUIManager.isTowerUIActive())
+            {
+                return;
+            }
+
             Vector3Int mousePos = getMousePosition();
             TileBase tileBase = getTileBase(mousePos);
+            this.lastClickPosition = mousePos;
             if (tileBase.name == tileName[(int)TileType.GRASS])
             {
-                SpawnTurret(mousePos);
+                towerUIManager.moveTowerUi(new Vector3(mousePos.x + 0.5f , mousePos.y + 0.5f, mousePos.z));
             }
         }
     }
@@ -54,12 +68,13 @@ public class TileMapManager : MonoBehaviour
         return Vector3Int.FloorToInt(worldPos);
     }
 
-    private void SpawnTurret(Vector3Int mousePos)
+    public void SpawnTurret()
     {
         if (dataManager.RemoveGold(turret.GetComponent<Turret>().cost))
         {
-            tileMap.SetTile(mousePos, tileList[(int)TileType.TOWER]);
-            Instantiate(turret, new Vector2(mousePos.x + 0.5f, mousePos.y + 0.5f), Quaternion.identity);
+            tileMap.SetTile(this.lastClickPosition, tileList[(int)TileType.TOWER]);
+            Instantiate(turret, new Vector2(this.lastClickPosition.x + 0.5f, this.lastClickPosition.y + 0.5f), Quaternion.identity);
+            towerUIManager.removeTowerUI();
         }
     }
 }
