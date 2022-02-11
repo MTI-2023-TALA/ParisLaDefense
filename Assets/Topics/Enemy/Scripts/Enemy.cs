@@ -53,6 +53,13 @@ public class Enemy : MonoBehaviour
                new Vector2(waypoints[index].x, waypoints[index].y),
                speed * Time.deltaTime);
 
+            // flip left to face next waypoint
+            if (transform.position.x > waypoints[index].x)
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            // flip right
+            else
+                transform.rotation = Quaternion.Euler(0, 180f, 0);
+
             // if reached next waypoint
             if (transform.position == waypoints[index])
             {

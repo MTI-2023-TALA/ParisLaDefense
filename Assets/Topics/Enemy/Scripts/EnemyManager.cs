@@ -57,7 +57,8 @@ public class EnemyManager : MonoBehaviour
 
         private void SpawnEnemy()
         {
-            Enemy enemy = Instantiate(enemyList[0], startPosition, Quaternion.identity).GetComponent<Enemy>();
+            int randomNumber = Random.Range(0, enemyList.Length);
+            Enemy enemy = Instantiate(enemyList[randomNumber], startPosition, Quaternion.identity).GetComponent<Enemy>();
             enemy.Init(waypoints);
         }
 
