@@ -47,4 +47,9 @@ public class DataManager : MonoBehaviour
         }
         return false;
     }
+
+    public void ChangeWave(int wave)
+    {
+        uiManager.updateWave(wave);
+    }
 }

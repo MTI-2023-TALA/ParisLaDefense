@@ -13,12 +13,24 @@ public class EnemyManager : MonoBehaviour
 
     private WaveManager waveManager;
 
+    private float countdown = 2f;
+    [SerializeField] private float waveCountdown = 5f;
+
     private void Start()
     {
         waypoints = WaypointManager.generateWaypoint(startPosition, tilemap);
 
         waveManager = new WaveManager(waypoints, startPosition, enemyList);
-        waveManager.SpawnWave(0);
+    }
+
+    private void Update()
+    {
+        if(countdown <= 0f)
+        {
+            StartCoroutine(waveManager.SpawnWave());
+            countdown = waveCountdown + waveManager.timeBetweenEnemy * waveManager.waveNumber;
+        }
+        countdown -= Time.deltaTime;
     }
 
 
@@ -27,12 +39,19 @@ public class EnemyManager : MonoBehaviour
         List<Vector3> waypoints;
         Vector3 startPosition;
 
+        public GameObject UI;
+
+        private DataManager dataManager;
+
+        public int waveNumber = 1;
+        public float timeBetweenEnemy = 0.5f;
+
         GameObject[] enemyList;
         public WaveManager(List<Vector3> waypoints, Vector3 startPosition, GameObject[] enemyList)
         {
             this.waypoints = waypoints;
             this.startPosition = startPosition;
-
+            dataManager = GameObject.Find(ObjectName.gameManager).GetComponent<DataManager>();
             this.enemyList = enemyList;
         }
 
@@ -42,12 +61,16 @@ public class EnemyManager : MonoBehaviour
             enemy.Init(waypoints);
         }
 
-        public void SpawnWave(int wave)
+        public IEnumerator SpawnWave()
         {
-            for (int i = 0; i < 10; i++)
+            dataManager.ChangeWave(waveNumber);
+            for (int i = 0; i < waveNumber; i++)
             {
                 SpawnEnemy();
+                yield return new WaitForSeconds(timeBetweenEnemy);
             }
+            waveNumber++;
+            
         }
     }
 
