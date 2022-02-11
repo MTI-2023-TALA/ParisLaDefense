@@ -22,13 +22,13 @@ public class DataManager : MonoBehaviour
 
     public void TakeDamage()
     {
-        life -= 1;
-        uiManager.updateLife(life);
         if (life == 0)
         {
-            // TODO: Game over
             return;
-        }
+        } 
+        
+        life -= 1;
+        uiManager.updateLife(life);
     }
 
     public void AddGold(int gold)
