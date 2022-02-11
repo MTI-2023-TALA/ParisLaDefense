@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public struct WaveManager
@@ -41,6 +42,9 @@ public class UiManager : MonoBehaviour
     public LifeManager lifeManager;
     public ManaManager manaManager;
 
+    public Button replayButton;
+    public GameObject gameOverUI;
+
     public void Init(int wave, int maxWave, int gold, int life, int maxLife, int mana, int maxMana)
     {
         this.waveManager.currentWave = wave;
@@ -58,6 +62,9 @@ public class UiManager : MonoBehaviour
         _setGoldUI(this.goldManager);
         _setLifeUI(this.lifeManager);
         _setManaUI(this.manaManager);
+
+        replayButton.onClick.AddListener(Replay);
+        gameOverUI.SetActive(false);
     }
 
     private void _setWaweUI(WaveManager waveManager)
@@ -86,6 +93,10 @@ public class UiManager : MonoBehaviour
     private void _setLifeUI(LifeManager lifeManager)
     {
         lifeManager.textLife.text = lifeManager.currentLife + "/" + lifeManager.maxLife;
+        if (lifeManager.currentLife == 0)
+        {
+            gameOverUI.SetActive(true);
+        }
     }
 
     public void updateLife(int newLife)
@@ -103,5 +114,11 @@ public class UiManager : MonoBehaviour
     {
         manaManager.currentMana = newMana;
         _setManaUI(manaManager);
+    }
+
+    public void Replay()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }
