@@ -1261,6 +1261,7 @@ GameObject:
   - component: {fileID: 1938849998}
   - component: {fileID: 1938849999}
   - component: {fileID: 1938850001}
+  - component: {fileID: 1938850002}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1324,6 +1325,7 @@ MonoBehaviour:
   enemyList:
   - {fileID: 7299694117303921080, guid: c568ab8ed02623b4c8713c6d75db6eb1, type: 3}
   - {fileID: 50850410495724354, guid: 1d460dd4b09839449bcdc17072d4dd9d, type: 3}
+  waypoints: []
   waveCountdown: 5
 --- !u!114 &1938850000
 MonoBehaviour:
@@ -1352,6 +1354,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerUI: {fileID: 1670667998}
   btnClose: {fileID: 258557619}
+--- !u!114 &1938850002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938849996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b292126b912aa9c4e86b153e61dfa4d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chainSawPrefab: {fileID: 2546161539395977455, guid: 86695dc58fb161e4587fd4b9ed45344b, type: 3}
+  canonBallPrefab: {fileID: 6610305424724185418, guid: 0db5db035dc16054586e5f8d93dbdefc, type: 3}
 --- !u!1 &2070575369
 GameObject:
   m_ObjectHideFlags: 0

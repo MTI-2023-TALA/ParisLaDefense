@@ -17,3 +17,9 @@ public static class ObjectName
 {
     public static string gameManager = "GameManager";
 }
+
+public static class ButtonName
+{
+    public static string spellChainSawBtn = "SpellChainSawBtn";
+    public static string spellCanonBallBtn = "SpellCanonBallBtn";
+}

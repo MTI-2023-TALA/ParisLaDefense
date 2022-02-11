@@ -18,6 +18,7 @@ public class DataManager : MonoBehaviour
     public void Start()
     {
         uiManager.Init(wave, maxWave, gold, life, maxLife, mana, maxMana);
+        StartCoroutine(AddMana());
     }
 
     public void TakeDamage()
@@ -51,5 +52,29 @@ public class DataManager : MonoBehaviour
     public void ChangeWave(int wave)
     {
         uiManager.updateWave(wave);
+    }
+
+    public bool HasEnoughMana(int mana)
+    {
+        return this.mana >= mana;
+    }
+
+    public void RemoveMana(int mana)
+    {
+        this.mana -= mana;
+        uiManager.updateMana(this.mana);
+    }
+
+    IEnumerator AddMana()
+    {
+        while (true) {
+            if (mana < 10)
+            {
+                mana += 1;
+                uiManager.updateMana(mana);
+                
+            }
+            yield return new WaitForSeconds(1);
+        }
     }
 }

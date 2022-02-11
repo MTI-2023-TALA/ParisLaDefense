@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private GameObject[] enemyList;
 
-    private List<Vector3> waypoints = new List<Vector3>();
+    public List<Vector3> waypoints = new List<Vector3>();
 
     private WaveManager waveManager;
 
