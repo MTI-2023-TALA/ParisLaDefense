@@ -42,6 +42,8 @@ public class UiManager : MonoBehaviour
     public LifeManager lifeManager;
     public ManaManager manaManager;
 
+    public Button pauseButton;
+
     public Button replayButton;
     public GameObject gameOverUI;
 
@@ -62,6 +64,8 @@ public class UiManager : MonoBehaviour
         _setGoldUI(this.goldManager);
         _setLifeUI(this.lifeManager);
         _setManaUI(this.manaManager);
+
+        pauseButton.onClick.AddListener(Pause);
 
         replayButton.onClick.AddListener(Replay);
         gameOverUI.SetActive(false);
@@ -120,5 +124,10 @@ public class UiManager : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+    }
+
+    private void Pause()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
