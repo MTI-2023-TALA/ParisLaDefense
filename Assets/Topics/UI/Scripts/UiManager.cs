@@ -110,6 +110,8 @@ public class UiManager : MonoBehaviour
         lifeManager.textLife.text = lifeManager.currentLife + "/" + lifeManager.maxLife;
         if (lifeManager.currentLife == 0)
         {
+            Time.timeScale = 0;
+            dataManager.SetGameIsPaused(true);
             gameOverUI.SetActive(true);
         }
     }
