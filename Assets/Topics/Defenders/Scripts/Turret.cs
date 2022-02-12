@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    public Animator animator;
+    [SerializeField] private Animator animator;
 
     private Transform target;
 
@@ -52,11 +52,8 @@ public class Turret : MonoBehaviour
         fireCountdown -= Time.deltaTime;
         if (target == null)
         {
-            animator.SetBool("IsAttacking", false);
             return;
         }
-
-        animator.SetBool("IsAttacking", true);
 
         // if enemy is left of defender, do a left flip
         if (transform.position.x > target.position.x)
@@ -68,10 +65,20 @@ public class Turret : MonoBehaviour
         // Can fire
         if(fireCountdown <= 0f)
         {
+            animator.SetBool("IsAttacking", true);
             Shoot();
             fireCountdown = 1f / fireRate;
         }
+
+        else
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("ATTACK"))
+            {
+                animator.SetBool("IsAttacking", false);
+            }
+        }
     }
+
 
     void Shoot()
     {
