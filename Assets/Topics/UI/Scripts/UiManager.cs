@@ -55,6 +55,8 @@ public class UiManager : MonoBehaviour
 
     public void Init(int wave, int maxWave, int gold, int life, int maxLife, int mana, int maxMana)
     {
+        Time.timeScale = 1;
+
         dataManager = GameObject.Find(ObjectName.gameManager).GetComponent<DataManager>();
 
         this.waveManager.currentWave = wave;
