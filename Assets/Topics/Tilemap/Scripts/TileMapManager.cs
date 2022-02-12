@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 // If you update enum dont forget to update tileList and tileName
-public enum TileType: int
+public enum TileType : int
 {
     GRASS = 0,
     PATH = 1,
@@ -26,7 +26,7 @@ public class TileMapManager : MonoBehaviour
 
     public Button btnSpawnCanoneer;
     public Button btnSpawnOilThrower;
-
+    public Button btnSellTurret;
     private Vector3Int lastClickPosition;
 
     private void Start()
@@ -36,6 +36,7 @@ public class TileMapManager : MonoBehaviour
         towerUIManager.removeTowerUI();
         btnSpawnCanoneer.onClick.AddListener(SpawnCanoneer);
         btnSpawnOilThrower.onClick.AddListener(SpawnOilThrower);
+        btnSellTurret.onClick.AddListener(SellTurret);
     }
 
     private void Update()
@@ -53,7 +54,11 @@ public class TileMapManager : MonoBehaviour
             this.lastClickPosition = mousePos;
             if (tileBase.name == tileName[(int)TileType.GRASS])
             {
-                towerUIManager.moveTowerUi(new Vector3(mousePos.x + 0.5f , mousePos.y + 0.5f, mousePos.z));
+                towerUIManager.moveTowerUi(new Vector3(mousePos.x + 0.5f, mousePos.y + 0.5f, mousePos.z));
+            }
+            if (tileBase.name == tileName[(int)TileType.TOWER])
+            {
+                towerUIManager.moveTowerUiUpgrade(new Vector3(mousePos.x + 0.5f, mousePos.y + 0.5f, mousePos.z));
             }
         }
     }
@@ -90,5 +95,10 @@ public class TileMapManager : MonoBehaviour
             Instantiate(oilThrower, new Vector2(this.lastClickPosition.x + 0.5f, this.lastClickPosition.y + 0.5f), Quaternion.identity);
             towerUIManager.removeTowerUI();
         }
+    }
+
+    public void SellTurret()
+    {
+        tileMap.SetTile(this.lastClickPosition, tileList[(int)TileType.GRASS]);
     }
 }
