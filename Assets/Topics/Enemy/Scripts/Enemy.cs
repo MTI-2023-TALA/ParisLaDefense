@@ -92,17 +92,12 @@ public class Enemy : MonoBehaviour
     {
         if(!slowed)
         {
-            Debug.Log("Speed at begin " + speed);
             slowed = true;
             speed -= slowEffect;
-            Debug.Log("Speed after slow " + speed);
             yield return new WaitForSeconds(3f);
-            Debug.Log("Speed after yield " + speed);
             speed += slowEffect;
             slowed = false;
-            Debug.Log("Speed at end of fct " + speed);
         }
-        
     }
 
     public IEnumerator FlashRed()
