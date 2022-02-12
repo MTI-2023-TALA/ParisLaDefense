@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
     {
         Enemy realTarget = target.GetComponent<Enemy>();
         realTarget.TakeDamage(damage);
-        StartCoroutine(realTarget.SlowDown(slowEffect));
+        realTarget.SlowDownEnemy(slowEffect);
         Destroy(gameObject);
     }
 }

@@ -83,15 +83,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void SlowDownEnemy(float slowValue)
+    {
+        StartCoroutine(SlowDown(slowValue));
+    }
+
     public IEnumerator SlowDown(float slowEffect)
     {
         if(!slowed)
         {
+            Debug.Log("Speed at begin " + speed);
             slowed = true;
             speed -= slowEffect;
-            yield return new WaitForSeconds(3);
+            Debug.Log("Speed after slow " + speed);
+            yield return new WaitForSeconds(3f);
+            Debug.Log("Speed after yield " + speed);
             speed += slowEffect;
             slowed = false;
+            Debug.Log("Speed at end of fct " + speed);
         }
         
     }

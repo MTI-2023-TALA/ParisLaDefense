@@ -97,12 +97,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5764465289216602090}
-  range: 4
+  range: 2
   fireRate: 0.2
   fireCountdown: 0
   damage: 1
-  cost: 50
-  bullet: {fileID: 4229383674311581117, guid: 80659fece1d0d514aa9702844a3b4c58, type: 3}
+  cost: 80
+  bullet: {fileID: 85434960702929041, guid: a484369c7e6b28e4bbc356c6436aa786, type: 3}
 --- !u!95 &5764465289216602090
 Animator:
   serializedVersion: 3

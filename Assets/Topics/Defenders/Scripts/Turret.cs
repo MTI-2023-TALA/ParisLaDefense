@@ -70,13 +70,8 @@ public class Turret : MonoBehaviour
             fireCountdown = 1f / fireRate;
         }
 
-        else
-        {
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("ATTACK"))
-            {
-                animator.SetBool("IsAttacking", false);
-            }
-        }
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("ATTACK"))
+            animator.SetBool("IsAttacking", false);
     }
 
 

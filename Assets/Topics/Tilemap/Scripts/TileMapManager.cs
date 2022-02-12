@@ -18,12 +18,15 @@ public class TileMapManager : MonoBehaviour
     [SerializeField] private Tile[] tileList;
     [SerializeField] private string[] tileName;
 
-    public GameObject turret;
+    public GameObject canoneer;
+    public GameObject oilThrower;
 
     private DataManager dataManager;
     private TowerUIManager towerUIManager;
 
-    public Button btnSpawnTurret;
+    public Button btnSpawnCanoneer;
+    public Button btnSpawnOilThrower;
+
     private Vector3Int lastClickPosition;
 
     private void Start()
@@ -31,12 +34,13 @@ public class TileMapManager : MonoBehaviour
         dataManager = GameObject.Find(ObjectName.gameManager).GetComponent<DataManager>();
         towerUIManager = GameObject.Find(ObjectName.gameManager).GetComponent<TowerUIManager>();
         towerUIManager.removeTowerUI();
-        btnSpawnTurret.onClick.AddListener(SpawnTurret);
+        btnSpawnCanoneer.onClick.AddListener(SpawnCanoneer);
+        btnSpawnOilThrower.onClick.AddListener(SpawnOilThrower);
     }
 
     private void Update()
     {
-        // Handle click event 
+        // Handle click event
         if (Input.GetButtonDown("Fire1") && !dataManager.GetGameIsPaused())
         {
             if (towerUIManager.isTowerUIActive())
@@ -68,12 +72,22 @@ public class TileMapManager : MonoBehaviour
         return Vector3Int.FloorToInt(worldPos);
     }
 
-    public void SpawnTurret()
+    public void SpawnCanoneer()
     {
-        if (dataManager.RemoveGold(turret.GetComponent<Turret>().cost))
+        if (dataManager.RemoveGold(canoneer.GetComponent<Turret>().cost))
         {
             tileMap.SetTile(this.lastClickPosition, tileList[(int)TileType.TOWER]);
-            Instantiate(turret, new Vector2(this.lastClickPosition.x + 0.5f, this.lastClickPosition.y + 0.5f), Quaternion.identity);
+            Instantiate(canoneer, new Vector2(this.lastClickPosition.x + 0.5f, this.lastClickPosition.y + 0.5f), Quaternion.identity);
+            towerUIManager.removeTowerUI();
+        }
+    }
+
+    public void SpawnOilThrower()
+    {
+        if (dataManager.RemoveGold(oilThrower.GetComponent<Turret>().cost))
+        {
+            tileMap.SetTile(this.lastClickPosition, tileList[(int)TileType.TOWER]);
+            Instantiate(oilThrower, new Vector2(this.lastClickPosition.x + 0.5f, this.lastClickPosition.y + 0.5f), Quaternion.identity);
             towerUIManager.removeTowerUI();
         }
     }
