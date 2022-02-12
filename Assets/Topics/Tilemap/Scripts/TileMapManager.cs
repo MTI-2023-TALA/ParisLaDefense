@@ -37,7 +37,7 @@ public class TileMapManager : MonoBehaviour
     private void Update()
     {
         // Handle click event 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !dataManager.GetGameIsPaused())
         {
             if (towerUIManager.isTowerUIActive())
             {

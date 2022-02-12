@@ -43,12 +43,20 @@ public class UiManager : MonoBehaviour
     public ManaManager manaManager;
 
     public Button pauseButton;
+    public Button backToMainScreen;
+    public Button pauseButtonFromPauseUI;
 
     public Button replayButton;
     public GameObject gameOverUI;
+    public GameObject pauseUI;
+
+    private DataManager dataManager;
+
 
     public void Init(int wave, int maxWave, int gold, int life, int maxLife, int mana, int maxMana)
     {
+        dataManager = GameObject.Find(ObjectName.gameManager).GetComponent<DataManager>();
+
         this.waveManager.currentWave = wave;
         this.waveManager.maxWave = maxWave;
 
@@ -65,7 +73,10 @@ public class UiManager : MonoBehaviour
         _setLifeUI(this.lifeManager);
         _setManaUI(this.manaManager);
 
+        pauseUI.SetActive(false);
         pauseButton.onClick.AddListener(Pause);
+        backToMainScreen.onClick.AddListener(GoToMainScreen);
+        pauseButtonFromPauseUI.onClick.AddListener(Pause);
 
         replayButton.onClick.AddListener(Replay);
         gameOverUI.SetActive(false);
@@ -127,6 +138,23 @@ public class UiManager : MonoBehaviour
     }
 
     private void Pause()
+    {
+        if (Time.timeScale != 0)
+        {
+            Time.timeScale = 0;
+            pauseButton.GetComponentInChildren<Text>().text = "Reprendre";
+            pauseUI.SetActive(true);
+            dataManager.SetGameIsPaused(true);
+        } else
+        {
+            Time.timeScale = 1;
+            pauseButton.GetComponentInChildren<Text>().text = "Pause";
+            pauseUI.SetActive(false);
+            dataManager.SetGameIsPaused(false);
+        }
+    }
+
+    private void GoToMainScreen()
     {
         SceneManager.LoadScene("MainMenu");
     }

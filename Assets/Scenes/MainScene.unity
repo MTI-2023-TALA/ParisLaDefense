@@ -559,6 +559,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1331345441904211812, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_Text
+      value: Pause
+      objectReference: {fileID: 0}
     - target: {fileID: 6402511207864723965, guid: b8d5c774d16735d498e507681504b01a, type: 3}
       propertyPath: m_sendNavigationEvents
       value: 1

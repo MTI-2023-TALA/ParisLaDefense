@@ -13,12 +13,28 @@ public class DataManager : MonoBehaviour
     private int maxWave = 72;
     private int maxMana = 10;
 
+    private bool gameIsPaused;
+
     [SerializeField] private UiManager uiManager;
 
     public void Start()
     {
         uiManager.Init(wave, maxWave, gold, life, maxLife, mana, maxMana);
+        this.gameIsPaused = false;
         StartCoroutine(AddMana());
+    }
+
+    public void SetGameIsPaused(bool isPaused)
+    {
+        this.gameIsPaused = isPaused;
+        if (this.gameIsPaused)
+        {
+            this.GetComponent<TowerUIManager>().removeTowerUI();
+        }
+    }
+    public bool GetGameIsPaused()
+    {
+        return this.gameIsPaused;
     }
 
     public void TakeDamage()
