@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileMap: {fileID: 0}
   speed: 2
-  life: 5
+  life: 10
   gold: 10
   spriteRenderer: {fileID: 6321530543675818159}
 --- !u!61 &6433770891013973714

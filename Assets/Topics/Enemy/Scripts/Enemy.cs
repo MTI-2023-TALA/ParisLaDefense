@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float speed = 2f;
     public float life = 2f;
     public int gold = 10;
+    private bool slowed = false;
 
     private DataManager dataManager;
     public SpriteRenderer spriteRenderer;
@@ -80,6 +81,19 @@ public class Enemy : MonoBehaviour
             dataManager.AddGold(gold);
             Destroy(gameObject);
         }
+    }
+
+    public IEnumerator SlowDown(float slowEffect)
+    {
+        if(!slowed)
+        {
+            slowed = true;
+            speed -= slowEffect;
+            yield return new WaitForSeconds(3);
+            speed += slowEffect;
+            slowed = false;
+        }
+        
     }
 
     public IEnumerator FlashRed()

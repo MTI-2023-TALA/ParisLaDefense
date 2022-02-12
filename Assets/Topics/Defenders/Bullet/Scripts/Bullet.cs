@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     private Transform target;
     private float damage;
     public float speed = 4f;
+    public float slowEffect = 1f;
 
     public void Init(Transform _target, float _damage)
     {
@@ -38,6 +39,7 @@ public class Bullet : MonoBehaviour
     {
         Enemy realTarget = target.GetComponent<Enemy>();
         realTarget.TakeDamage(damage);
+        StartCoroutine(realTarget.SlowDown(slowEffect));
         Destroy(gameObject);
     }
 }
