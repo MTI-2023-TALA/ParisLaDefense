@@ -10,7 +10,7 @@ public class DataManager : MonoBehaviour
     private int mana = 0;
 
     private int maxLife = 10;
-    private int maxWave = 3;
+    private int maxWave = 72;
     private int maxMana = 10;
 
     private bool gameIsPaused;
