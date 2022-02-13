@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float speed = 2f;
     public float life = 2f;
     public int gold = 10;
+    public int manaDrop = 10;
     private bool slowed = false;
 
     private DataManager dataManager;
@@ -79,6 +80,9 @@ public class Enemy : MonoBehaviour
         if (life <= 0f)
         {
             dataManager.AddGold(gold);
+            int randInt = Random.Range(0, 100);
+            if (randInt <= manaDrop)
+                dataManager.AddMana();
             Destroy(gameObject);
         }
     }

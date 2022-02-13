@@ -47,7 +47,9 @@ public class UiManager : MonoBehaviour
     public Button pauseButtonFromPauseUI;
 
     public Button replayButton;
+    public Button victoryReplayButton;
     public GameObject gameOverUI;
+    public GameObject victoryUI;
     public GameObject pauseUI;
 
     private DataManager dataManager;
@@ -81,12 +83,21 @@ public class UiManager : MonoBehaviour
         pauseButtonFromPauseUI.onClick.AddListener(Pause);
 
         replayButton.onClick.AddListener(Replay);
+        victoryReplayButton.onClick.AddListener(Replay);
         gameOverUI.SetActive(false);
+        victoryUI.SetActive(false);
     }
 
     private void _setWaweUI(WaveManager waveManager)
     {
+        if(waveManager.currentWave == waveManager.maxWave + 1)
+        {
+            Time.timeScale = 0;
+            dataManager.SetGameIsPaused(true);
+            victoryUI.SetActive(true);
+        }
         waveManager.textWave.text = waveManager.currentWave + "/" + waveManager.maxWave;
+        
     }
 
     public void updateWave(int newCurrentWave)

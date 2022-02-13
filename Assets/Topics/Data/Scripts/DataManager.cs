@@ -10,7 +10,7 @@ public class DataManager : MonoBehaviour
     private int mana = 0;
 
     private int maxLife = 10;
-    private int maxWave = 72;
+    private int maxWave = 3;
     private int maxMana = 10;
 
     private bool gameIsPaused;
@@ -21,7 +21,6 @@ public class DataManager : MonoBehaviour
     {
         uiManager.Init(wave, maxWave, gold, life, maxLife, mana, maxMana);
         this.gameIsPaused = false;
-        StartCoroutine(AddMana());
     }
 
     public void SetGameIsPaused(bool isPaused)
@@ -81,16 +80,13 @@ public class DataManager : MonoBehaviour
         uiManager.updateMana(this.mana);
     }
 
-    IEnumerator AddMana()
+    public void AddMana()
     {
-        while (true) {
-            if (mana < 10)
-            {
-                mana += 1;
-                uiManager.updateMana(mana);
-                
-            }
-            yield return new WaitForSeconds(1);
+        if(mana < maxMana)
+        {
+            mana += 1;
+            uiManager.updateMana(mana);
         }
+        
     }
 }
