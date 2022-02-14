@@ -97,11 +97,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5764465289216602090}
-  range: 2
-  fireRate: 0.2
+  range: 2.5
+  fireRate: 0.33
   fireCountdown: 0
   damage: 1
   cost: 80
+  attacksAOE: 1
+  level: 1
   bullet: {fileID: 85434960702929041, guid: a484369c7e6b28e4bbc356c6436aa786, type: 3}
 --- !u!95 &5764465289216602090
 Animator:

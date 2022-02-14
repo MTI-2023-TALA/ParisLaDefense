@@ -15,6 +15,7 @@ public class Turret : MonoBehaviour
     public float fireCountdown = 0f;
     public float damage = 1f;
     public int cost = 50;
+    public bool attacksAOE = false;
     public int level = 1;
     public GameObject bullet;
 
@@ -97,6 +98,6 @@ public class Turret : MonoBehaviour
     void Shoot()
     {
         Bullet bulletSent = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
-        bulletSent.Init(target, damage);
+        bulletSent.Init(target, damage, attacksAOE);
     }
 }
