@@ -90,14 +90,7 @@ public class UiManager : MonoBehaviour
 
     private void _setWaweUI(WaveManager waveManager)
     {
-        if(waveManager.currentWave == waveManager.maxWave + 1)
-        {
-            Time.timeScale = 0;
-            dataManager.SetGameIsPaused(true);
-            victoryUI.SetActive(true);
-        }
-        waveManager.textWave.text = waveManager.currentWave + "/" + waveManager.maxWave;
-        
+        waveManager.textWave.text = waveManager.currentWave + "/" + waveManager.maxWave;   
     }
 
     public void updateWave(int newCurrentWave)

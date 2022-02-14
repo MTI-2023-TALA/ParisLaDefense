@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private Vector3Int startPosition;
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private GameObject[] enemyList;
+
+    public Button victoryReplayButton;
+    public GameObject victoryUI;
 
     public List<Vector3> waypoints = new List<Vector3>();
 
@@ -31,6 +35,13 @@ public class EnemyManager : MonoBehaviour
             countdown = waveCountdown + waveManager.timeBetweenEnemy * waveManager.waveNumber;
         }
         countdown -= Time.deltaTime;
+        //Check if the game should end, only end if there's no enemy left
+        if (waveManager.waveNumber > waveManager.maxWave && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+                Time.timeScale = 0;
+                GameObject.Find(ObjectName.gameManager).GetComponent<DataManager>().SetGameIsPaused(true);
+                victoryUI.SetActive(true);                
+        }
     }
 
 
@@ -43,10 +54,14 @@ public class EnemyManager : MonoBehaviour
 
         private DataManager dataManager;
 
+        public Button victoryReplayButton;
+        public GameObject victoryUI;
+
         public int waveNumber = 1;
         public float timeBetweenEnemy = 0.5f;
+        public int maxWave = 72;
 
-        GameObject[] enemyList;
+        public GameObject[] enemyList;
         public WaveManager(List<Vector3> waypoints, Vector3 startPosition, GameObject[] enemyList)
         {
             this.waypoints = waypoints;
@@ -64,13 +79,17 @@ public class EnemyManager : MonoBehaviour
 
         public IEnumerator SpawnWave()
         {
-            dataManager.ChangeWave(waveNumber);
-            for (int i = 0; i < waveNumber; i++)
+            //Only spawn wave if we're not at the end;
+            if(waveNumber <= maxWave)
             {
-                SpawnEnemy();
-                yield return new WaitForSeconds(timeBetweenEnemy);
-            }
-            waveNumber++;
+                dataManager.ChangeWave(waveNumber);
+                for (int i = 0; i < waveNumber; i++)
+                {
+                    SpawnEnemy();
+                    yield return new WaitForSeconds(timeBetweenEnemy);
+                }
+                waveNumber++;
+            } 
         }
     }
 
