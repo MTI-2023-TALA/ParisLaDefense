@@ -27,6 +27,7 @@ public class TileMapManager : MonoBehaviour
     public Button btnSpawnCanoneer;
     public Button btnSpawnOilThrower;
     public Button btnSellTurret;
+    public Button btnLevelUp;
     private Vector3Int lastClickPosition;
 
     private void Start()
@@ -36,7 +37,8 @@ public class TileMapManager : MonoBehaviour
         towerUIManager.removeTowerUI();
         btnSpawnCanoneer.onClick.AddListener(SpawnCanoneer);
         btnSpawnOilThrower.onClick.AddListener(SpawnOilThrower);
-        btnSellTurret.onClick.AddListener(SellTurret);
+        btnSellTurret.onClick.AddListener(delegate { SellTurret(GetClosestTurret()); });
+        btnLevelUp.onClick.AddListener(delegate { UpgradeTurret(GetClosestTurret()); });
     }
 
     private void Update()
@@ -97,8 +99,51 @@ public class TileMapManager : MonoBehaviour
         }
     }
 
-    public void SellTurret()
+    public void SellTurret(GameObject closestTurret)
     {
-        tileMap.SetTile(this.lastClickPosition, tileList[(int)TileType.GRASS]);
+        if (closestTurret != null)
+        {
+            Turret turret = closestTurret.GetComponent<Turret>();
+            int money = turret.CalculateSell();
+            Destroy(closestTurret.gameObject);
+            dataManager.AddGold(money);
+            tileMap.SetTile(this.lastClickPosition, tileList[(int)TileType.GRASS]);
+        }
+        towerUIManager.removeTowerUI();
+    }
+
+    public void UpgradeTurret(GameObject closestTurret)
+    {
+        if (closestTurret != null)
+        {
+            Debug.Log("ici");
+            Turret turret = closestTurret.GetComponent<Turret>();
+            int money = turret.CalculateUpgrade();
+            if (dataManager.RemoveGold(money))
+            {
+                turret.LevelUp(1);
+                GameObject.Find(ObjectName.gameManager).GetComponent<TowerUIManager>().updateTowerUpgradeCost(turret);
+            }
+
+        }
+    }
+
+    public GameObject GetClosestTurret()
+    {
+        GameObject[] turrets = GameObject.FindGameObjectsWithTag(Tag.turret);
+        float shortestDist = Mathf.Infinity;
+        GameObject closestTurret = null;
+        Vector2 mousePos = new Vector2(lastClickPosition.x + 0.5f, lastClickPosition.y + 0.5f);
+        foreach (GameObject turret in turrets)
+        {
+            Debug.Log("mousePos: " + mousePos + ", turretPos: " + turret.transform.position);
+            float curDist = Vector2.Distance(mousePos, turret.transform.position);
+            if (curDist < shortestDist)
+            {
+                shortestDist = curDist;
+                closestTurret = turret;
+            }
+        }
+        return closestTurret;
     }
 }

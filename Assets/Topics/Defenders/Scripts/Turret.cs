@@ -15,6 +15,7 @@ public class Turret : MonoBehaviour
     public float fireCountdown = 0f;
     public float damage = 1f;
     public int cost = 50;
+    public int level = 1;
     public GameObject bullet;
 
     // Start is called before the first frame update
@@ -28,20 +29,22 @@ public class Turret : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(Tag.enemy);
         float shortestDist = Mathf.Infinity;
         GameObject closestEnemy = null;
-        foreach(GameObject enemy in enemies)
+        foreach (GameObject enemy in enemies)
         {
             float curDist = Vector2.Distance(transform.position, enemy.transform.position);
-            if(curDist < shortestDist)
+            if (curDist < shortestDist)
             {
                 shortestDist = curDist;
                 closestEnemy = enemy;
             }
         }
 
-        if(closestEnemy != null && shortestDist <= range)
+        if (closestEnemy != null && shortestDist <= range)
         {
             target = closestEnemy.transform;
-        } else {
+        }
+        else
+        {
             target = null;
         }
     }
@@ -63,7 +66,7 @@ public class Turret : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180f, 0);
 
         // Can fire
-        if(fireCountdown <= 0f)
+        if (fireCountdown <= 0f)
         {
             animator.SetBool("IsAttacking", true);
             Shoot();
@@ -74,7 +77,23 @@ public class Turret : MonoBehaviour
             animator.SetBool("IsAttacking", false);
     }
 
+    public void LevelUp(int amount)
+    {
+        level += amount;
+        damage = damage + 1;
+        fireRate = fireRate - 0.05f;
+        range = range + 1f;
+    }
 
+    public int CalculateSell()
+    {
+        return (int)((level * (cost + (cost + (level - 1) * 20)) / 2) * 0.7f);
+    }
+
+    public int CalculateUpgrade()
+    {
+        return cost + 20 * level;
+    }
     void Shoot()
     {
         Bullet bulletSent = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();

@@ -8,14 +8,19 @@ public class TowerUIManager : MonoBehaviour
     [SerializeField] private GameObject towerUI;
     [SerializeField] private GameObject towerUIupgrade;
 
+    private TileMapManager tileMapManager;
+
     private bool isActive = false;
 
     [SerializeField] private Button btnCloseBuy;
     [SerializeField] private Button btnCloseUpgrade;
+    [SerializeField] public Text sellAmountText;
+    [SerializeField] private Text levelUpText;
 
     public void Start()
     {
         this.removeTowerUI();
+        tileMapManager = GameObject.Find(ObjectName.gameManager).GetComponent<TileMapManager>();
         btnCloseBuy.onClick.AddListener(removeTowerUI);
         btnCloseUpgrade.onClick.AddListener(removeTowerUI);
     }
@@ -32,6 +37,16 @@ public class TowerUIManager : MonoBehaviour
         isActive = true;
         towerUIupgrade.SetActive(isActive);
         towerUIupgrade.transform.position = newPos;
+        Turret turret = tileMapManager.GetClosestTurret().GetComponent<Turret>();
+        sellAmountText.text = (turret.CalculateSell()).ToString() + "$";
+        updateTowerUpgradeCost(turret);
+    }
+
+    public void updateTowerUpgradeCost(Turret turret)
+    {
+
+        levelUpText.text = (turret.CalculateUpgrade()).ToString() + "$";
+        sellAmountText.text = ((turret.CalculateSell())).ToString() + "$";
     }
 
     public void removeTowerUI()

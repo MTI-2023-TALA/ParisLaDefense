@@ -3,6 +3,7 @@ public static class Tag
     public static string castle = "Castle";
     public static string enemy = "Enemy";
     public static string bullet = "Bullet";
+    public static string turret = "Turret";
 }
 
 public static class TileName
