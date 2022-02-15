@@ -13,9 +13,13 @@ public class Enemy : MonoBehaviour
     public int gold = 10;
     public int manaDrop = 10;
     private bool slowed = false;
+    private float maxLife = 0f;
 
     private DataManager dataManager;
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer healthBar;
+    private float healthScaleX;
+    private float healthScaleY;
 
     private int index = 0;
 
@@ -24,7 +28,9 @@ public class Enemy : MonoBehaviour
         // Get waypoint to follow
         this.waypoints = waypoints;
         dataManager = GameObject.Find(ObjectName.gameManager).GetComponent<DataManager>();
-
+        maxLife = life;
+        healthScaleX = healthBar.transform.localScale.x;
+        healthScaleY = healthBar.transform.localScale.y;
 
         // Teleport enemy to first waypoint
         transform.position = waypoints[index];
@@ -76,6 +82,7 @@ public class Enemy : MonoBehaviour
     {
         StartCoroutine(FlashRed());
         life -= damage;
+        healthBar.transform.localScale = new Vector3((healthScaleX * life) / maxLife, healthScaleY, 1f);
 
         if (life <= 0f)
         {
