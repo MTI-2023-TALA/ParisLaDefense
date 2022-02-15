@@ -18,6 +18,7 @@ public class Turret : MonoBehaviour
     public bool attacksAOE = false;
     public int level = 1;
     public GameObject bullet;
+    public AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -98,6 +99,7 @@ public class Turret : MonoBehaviour
     void Shoot()
     {
         Bullet bulletSent = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+        audioSource.Play();
         bulletSent.Init(target, damage, attacksAOE);
     }
 }

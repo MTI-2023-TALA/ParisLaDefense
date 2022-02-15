@@ -284,7 +284,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba1e4e2bd5d16a743ab8f342e1bb79c3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1e28d0b2b2923564bb9fd84437ca7ab2, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.05
   m_Pitch: 1
@@ -711,6 +711,10 @@ PrefabInstance:
       propertyPath: victoryUI
       value: 
       objectReference: {fileID: 1771927046}
+    - target: {fileID: 6789884808606802143, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: lifeManager.maxLife
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6789884808606802143, guid: b8d5c774d16735d498e507681504b01a, type: 3}
       propertyPath: victoryReplayButton
       value: 
