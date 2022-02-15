@@ -53,7 +53,13 @@ public class UiManager : MonoBehaviour
     public GameObject pauseUI;
 
     private DataManager dataManager;
+    private AudioSource audioSource;
 
+    public void Start()
+    {
+        GameObject musicGameObject = GameObject.Find("BackgroundAudio");
+        audioSource = musicGameObject.GetComponent<AudioSource>();
+    }
 
     public void Init(int wave, int maxWave, int gold, int life, int maxLife, int mana, int maxMana)
     {
@@ -147,9 +153,11 @@ public class UiManager : MonoBehaviour
 
     private void Pause()
     {
+
         if (Time.timeScale != 0)
         {
             Time.timeScale = 0;
+            audioSource.Pause();
             pauseButton.GetComponentInChildren<Text>().text = "Reprendre";
             pauseUI.SetActive(true);
             dataManager.SetGameIsPaused(true);
@@ -157,6 +165,7 @@ public class UiManager : MonoBehaviour
         {
             Time.timeScale = 1;
             pauseButton.GetComponentInChildren<Text>().text = "Pause";
+            audioSource.UnPause();
             pauseUI.SetActive(false);
             dataManager.SetGameIsPaused(false);
         }
