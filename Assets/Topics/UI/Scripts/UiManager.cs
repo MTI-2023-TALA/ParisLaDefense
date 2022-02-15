@@ -124,6 +124,7 @@ public class UiManager : MonoBehaviour
         {
             Time.timeScale = 0;
             dataManager.SetGameIsPaused(true);
+            audioSource.Pause();
             gameOverUI.SetActive(true);
         }
     }
