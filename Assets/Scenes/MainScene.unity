@@ -268,6 +268,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6414e4bc46a9a3f45afd5947d3be9b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &438490057 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4699214782899481410, guid: 151bd7cf53ef16247a83b0a848696de2, type: 3}
+  m_PrefabInstance: {fileID: 918979544}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &778444371 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6765784370696832994, guid: 151bd7cf53ef16247a83b0a848696de2, type: 3}
+  m_PrefabInstance: {fileID: 918979544}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &918979544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1215,6 +1237,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771927046}
   m_CullTransparentMesh: 1
+--- !u!114 &1795388355 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7954788726150578128, guid: 151bd7cf53ef16247a83b0a848696de2, type: 3}
+  m_PrefabInstance: {fileID: 918979544}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1810241335 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6789884808757319139, guid: b8d5c774d16735d498e507681504b01a, type: 3}
@@ -1307,7 +1340,7 @@ MonoBehaviour:
   btnSpawnCanoneer: {fileID: 115251702}
   btnSpawnOilThrower: {fileID: 1579235934}
   btnSellTurret: {fileID: 918979546}
-  btnLevelUp: {fileID: 0}
+  btnLevelUp: {fileID: 778444371}
 --- !u!114 &1938849999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,8 +1391,8 @@ MonoBehaviour:
   towerUIupgrade: {fileID: 918979545}
   btnCloseBuy: {fileID: 258557619}
   btnCloseUpgrade: {fileID: 918979547}
-  sellAmountText: {fileID: 0}
-  levelUpText: {fileID: 0}
+  sellAmountText: {fileID: 438490057}
+  levelUpText: {fileID: 1795388355}
 --- !u!114 &1938850002
 MonoBehaviour:
   m_ObjectHideFlags: 0
