@@ -44,7 +44,7 @@ public class TileMapManager : MonoBehaviour
     private void Update()
     {
         // Handle click event
-        if (Input.GetButtonDown("Fire1") && !dataManager.GetGameIsPaused())
+        if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.T)) && !dataManager.GetGameIsPaused())
         {
             if (towerUIManager.isTowerUIActive())
             {
@@ -63,6 +63,36 @@ public class TileMapManager : MonoBehaviour
                 towerUIManager.moveTowerUiUpgrade(new Vector3(mousePos.x + 0.5f, mousePos.y + 0.5f, mousePos.z));
             }
         }
+
+        if (towerUIManager.isTowerUIActive() && !towerUIManager.isTowerUIUpdateActive())
+        {
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A))
+            {
+                SpawnCanoneer();
+            }
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z))
+            {
+                SpawnOilThrower();
+            }
+        }
+
+        if (towerUIManager.isTowerUIUpdateActive())
+        {
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A))
+            {
+                UpgradeTurret(GetClosestTurret());
+            }
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z))
+            {
+                SellTurret(GetClosestTurret());
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            towerUIManager.removeTowerUI();
+        }
+
     }
 
     private TileBase getTileBase(Vector3Int pos)

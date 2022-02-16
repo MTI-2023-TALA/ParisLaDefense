@@ -11,6 +11,7 @@ public class TowerUIManager : MonoBehaviour
     private TileMapManager tileMapManager;
 
     private bool isActive = false;
+    private bool isUpgradeActive = false;
 
     [SerializeField] private Button btnCloseBuy;
     [SerializeField] private Button btnCloseUpgrade;
@@ -35,6 +36,7 @@ public class TowerUIManager : MonoBehaviour
     public void moveTowerUiUpgrade(Vector3 newPos)
     {
         isActive = true;
+        isUpgradeActive = true;
         towerUIupgrade.SetActive(isActive);
         towerUIupgrade.transform.position = newPos;
         Turret turret = tileMapManager.GetClosestTurret().GetComponent<Turret>();
@@ -52,6 +54,7 @@ public class TowerUIManager : MonoBehaviour
     public void removeTowerUI()
     {
         isActive = false;
+        isUpgradeActive = false;
         towerUI.SetActive(isActive);
         towerUIupgrade.SetActive(isActive);
     }
@@ -59,5 +62,10 @@ public class TowerUIManager : MonoBehaviour
     public bool isTowerUIActive()
     {
         return isActive;
+    }
+
+    public bool isTowerUIUpdateActive()
+    {
+        return isUpgradeActive;
     }
 }

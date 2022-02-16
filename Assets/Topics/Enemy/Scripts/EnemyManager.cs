@@ -99,6 +99,7 @@ public class EnemyManager : MonoBehaviour
                     SpawnEnemy();
                     yield return new WaitForSeconds(timeBetweenEnemy);
                 }
+                timeBetweenEnemy -= 0.01f;
                 waveNumber++;
             } 
         }
@@ -140,7 +141,7 @@ public class EnemyManager : MonoBehaviour
                 return currentPos;
             }
 
-            var randNextDirection = (int)Random.Range(0, 10);
+            var randNextDirection = (int)Random.Range(0, 6);
             var possibleNextPosition = getNextDirection(currentPos, randNextDirection, direction);
 
             int i = 0;
@@ -214,7 +215,37 @@ public class EnemyManager : MonoBehaviour
 
         private static Vector3Int getVerticalPos(Vector3Int pos, bool opt)
         {
-            if (pos.x > 14 && canBePath(new Vector3Int(pos.x - 1, pos.y, 0), pos))
+            int leftPathCount = 0;
+            int rightPathCount = 0;
+
+            for (int i = 0; i < pos.x; i++)
+            {
+                Vector3Int newPos = new Vector3Int(i, pos.y, 0);
+                if (tilemap.GetTile(newPos).name == tileMapManager.tileName[(int)TileType.PATH])
+                {
+                    leftPathCount += 1;
+                }
+            }
+
+            for (int i = pos.x + 1; i < 24; i++)
+            {
+                Vector3Int newPos = new Vector3Int(i, pos.y, 0);
+                if (tilemap.GetTile(newPos).name == tileMapManager.tileName[(int)TileType.PATH])
+                {
+                    rightPathCount += 1;
+                }
+            }
+
+            if (leftPathCount < rightPathCount && canBePath(new Vector3Int(pos.x - 1, pos.y, 0), pos))
+            {
+                return new Vector3Int(pos.x - 1, pos.y, 0);
+            }
+            else if (leftPathCount > rightPathCount && canBePath(new Vector3Int(pos.x + 1, pos.y, 0), pos))
+            {
+                return new Vector3Int(pos.x + 1, pos.y, 0);
+            }
+
+            if (pos.x > 12 && canBePath(new Vector3Int(pos.x - 1, pos.y, 0), pos))
             {
                 return new Vector3Int(pos.x - 1, pos.y, 0);
             } else if (canBePath(new Vector3Int(pos.x + 1, pos.y, 0), pos))

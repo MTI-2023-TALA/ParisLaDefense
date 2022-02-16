@@ -13,6 +13,7 @@ public class SpellManager : MonoBehaviour
 
     private DataManager dataManager;
     private EnemyManager enemyManager;
+    private TowerUIManager towerUIManager;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class SpellManager : MonoBehaviour
 
         dataManager = GameObject.Find(ObjectName.gameManager).GetComponent<DataManager>();
         enemyManager = GameObject.Find(ObjectName.gameManager).GetComponent<EnemyManager>();
+        towerUIManager = GameObject.Find(ObjectName.gameManager).GetComponent<TowerUIManager>();
 
         canonBallBtn.onClick.AddListener(SpellCanonBall);
         chainSawBtn.onClick.AddListener(SpellChainSaw);
@@ -28,6 +30,8 @@ public class SpellManager : MonoBehaviour
 
     private void SpellChainSaw()
     {
+        towerUIManager.removeTowerUI();
+
         int cost = 5;
         if (!dataManager.HasEnoughMana(cost))
         {
@@ -42,12 +46,13 @@ public class SpellManager : MonoBehaviour
 
     private void SpellCanonBall() 
     {
+        towerUIManager.removeTowerUI();
+
         int cost = 3;
         if (!dataManager.HasEnoughMana(cost))
         {
             return;
         }
-
         dataManager.RemoveMana(cost);
         Instantiate(canonBallPrefab, new Vector3(1f, 25f), Quaternion.identity);
         Debug.Log("canon");

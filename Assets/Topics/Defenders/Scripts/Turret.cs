@@ -9,6 +9,8 @@ public class Turret : MonoBehaviour
 
     private Transform target;
 
+    [SerializeField] private Color[] colors;
+
     [Header("Turret attributes")]
     public float range = 4f;
     public float fireRate = 1f;
@@ -84,8 +86,12 @@ public class Turret : MonoBehaviour
     {
         level += amount;
         damage = damage + 1;
-        fireRate = fireRate - 0.05f;
+        fireRate = fireRate * 0.95f;
         range = range + 1f;
+        if (this.level < 10)
+        {
+            this.GetComponent<SpriteRenderer>().color = colors[level];
+        }
     }
 
     public int CalculateSell()
