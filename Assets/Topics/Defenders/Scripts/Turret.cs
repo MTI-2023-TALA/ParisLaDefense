@@ -55,6 +55,10 @@ public class Turret : MonoBehaviour
     void Update()
     {
         fireCountdown -= Time.deltaTime;
+
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("ATTACK"))
+            animator.SetBool("IsAttacking", false);
+
         if (target == null)
         {
             return;
@@ -74,9 +78,6 @@ public class Turret : MonoBehaviour
             Shoot();
             fireCountdown = 1f / fireRate;
         }
-
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).IsName("ATTACK"))
-            animator.SetBool("IsAttacking", false);
     }
 
     public void LevelUp(int amount)

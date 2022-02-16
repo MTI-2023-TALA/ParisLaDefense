@@ -233,6 +233,35 @@ public class EnemyManager : MonoBehaviour
 
         private static Vector3Int getHorizontalPos(Vector3Int pos, bool opt)
         {
+            int botPathCount = 0;
+            int topPathCount = 0;
+
+            for (int i = -1; i < pos.y; i++)
+            {
+                Vector3Int newPos = new Vector3Int(pos.x, i, 0);
+                if (tilemap.GetTile(newPos).name == tileMapManager.tileName[(int)TileType.PATH])
+                {
+                    botPathCount += 1;
+                }
+            }
+
+            for (int i = pos.y + 1; i < 16; i++)
+            {
+                Vector3Int newPos = new Vector3Int(pos.x, i, 0);
+                if (tilemap.GetTile(newPos).name == tileMapManager.tileName[(int)TileType.PATH])
+                {
+                    topPathCount += 1;
+                }
+            }
+
+            if (botPathCount < topPathCount && canBePath(new Vector3Int(pos.x, pos.y - 1, 0), pos))
+            {
+                return new Vector3Int(pos.x, pos.y - 1, 0);
+            } else if (botPathCount > topPathCount && canBePath(new Vector3Int(pos.x, pos.y + 1, 0), pos))
+            {
+                return new Vector3Int(pos.x, pos.y + 1, 0);
+            }
+
             if (pos.y > 8 && canBePath(new Vector3Int(pos.x, pos.y - 1, 0), pos))
             {
                 return new Vector3Int(pos.x, pos.y - 1, 0);
