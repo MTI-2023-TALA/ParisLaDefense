@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
+public enum Direction
+{
+    NORTH = 0,
+    EAST = 1,
+    SOUTH = 2,
+    WEST = 3,
+}
+
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private Vector3Int startPosition;
@@ -22,8 +30,11 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        waypoints = WaypointManager.generateWaypoint(startPosition, tilemap);
+        WaypointManager.tileMapManager = GameObject.Find(ObjectName.gameManager).GetComponent<TileMapManager>();
+        WaypointManager.tilemap = this.tilemap;
 
+        this.startPosition = WaypointManager.resetMap(24, 16);
+        waypoints = WaypointManager.generateWaypoint(startPosition, tilemap);
         waveManager = new WaveManager(waypoints, startPosition, enemyList);
     }
 
@@ -96,10 +107,192 @@ public class EnemyManager : MonoBehaviour
     public static class WaypointManager
     {
         public static List<Vector3> waypoints = new List<Vector3>();
-        private static Tilemap tilemap;
+        public static Tilemap tilemap;
+        public static TileMapManager tileMapManager;
+
+        public static Vector3Int resetMap(int width, int height)
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = -1; j < height; j++)
+                {
+                    Vector3Int currentPos = new Vector3Int(i, j, 0);
+                    tilemap.SetTile(currentPos, tileMapManager.tileList[(int)TileType.GRASS]);
+                }
+            }
+
+            tilemap.SetTile(new Vector3Int(23, 10, 0), tileMapManager.tileList[(int)TileType.PATH]);
+
+            return generatePath();
+        }
+
+        public static Vector3Int generatePath()
+        {
+            Vector3Int castlePos = new Vector3Int(23, 10, 0);
+
+            return generatePathRec(300, castlePos, Direction.WEST);
+        }
+
+        private static Vector3Int generatePathRec(int pathSize, Vector3Int currentPos, Direction direction)
+        {
+            if (pathSize == 0)
+            {
+                return currentPos;
+            }
+
+            var randNextDirection = (int)Random.Range(0, 10);
+            var possibleNextPosition = getNextDirection(currentPos, randNextDirection, direction);
+
+            int i = 0;
+            while (!canBePath(possibleNextPosition, currentPos) && i < 5)
+            {
+                possibleNextPosition = getNextDirection(currentPos, i, direction);
+                i++;
+            }
+
+            if (i == 5)
+            {
+                return generatePathRec(0, currentPos, getCurrentDirection(possibleNextPosition, currentPos)); ;
+            }
+
+            tilemap.SetTile(possibleNextPosition, tileMapManager.tileList[(int)TileType.PATH]);
+
+            if (pathSize - 1 == 0)
+            {
+                return possibleNextPosition;
+            }
+            return generatePathRec(pathSize - 1, possibleNextPosition, getCurrentDirection(possibleNextPosition, currentPos));
+        }
+
+        private static Direction getCurrentDirection(Vector3Int newPos, Vector3Int prevPos)
+        {
+            if (newPos.x - prevPos.x == -1)
+            {
+                return Direction.WEST;
+            }
+
+            if (newPos.x - prevPos.x == 1)
+            {
+                return Direction.EAST;
+            }
+
+            if (newPos.y - prevPos.y == 1)
+            {
+                return Direction.NORTH;
+            }
+
+            return Direction.SOUTH;
+
+        }
+
+        private static Vector3Int getNextDirection(Vector3Int currentPos, int nextDirection, Direction direction)
+        {
+            switch(nextDirection)
+            {
+                case 0:
+                    return getVerticalPos(currentPos, true);
+                case 1:
+                    return getVerticalPos(currentPos, false);
+                case 2:
+                    return getHorizontalPos(currentPos, true);
+                case 3:
+                    return getHorizontalPos(currentPos, false);
+                default:
+                    switch(direction)
+                    {
+                        case Direction.WEST:
+                            return new Vector3Int(currentPos.x - 1, currentPos.y, 0);
+                        case Direction.EAST:
+                            return new Vector3Int(currentPos.x + 1, currentPos.y, 0);
+                        case Direction.NORTH:
+                            return new Vector3Int(currentPos.x, currentPos.y + 1, 0);
+                        default:
+                            return new Vector3Int(currentPos.x, currentPos.y - 1, 0);
+                    }
+            }
+        }
+
+        private static Vector3Int getVerticalPos(Vector3Int pos, bool opt)
+        {
+            if (pos.x > 14 && canBePath(new Vector3Int(pos.x - 1, pos.y, 0), pos))
+            {
+                return new Vector3Int(pos.x - 1, pos.y, 0);
+            } else if (canBePath(new Vector3Int(pos.x + 1, pos.y, 0), pos))
+            {
+                return new Vector3Int(pos.x + 1, pos.y, 0);
+            }
+
+            if (opt)
+            {
+                return new Vector3Int(pos.x - 1, pos.y, 0);
+            }
+
+            return new Vector3Int(pos.x + 1, pos.y, 0);
+        }
+
+
+        private static Vector3Int getHorizontalPos(Vector3Int pos, bool opt)
+        {
+            if (pos.y > 8 && canBePath(new Vector3Int(pos.x, pos.y - 1, 0), pos))
+            {
+                return new Vector3Int(pos.x, pos.y - 1, 0);
+            }
+            else if (canBePath(new Vector3Int(pos.x, pos.y + 1, 0), pos))
+            {
+                return new Vector3Int(pos.x, pos.y + 1, 0);
+            }
+
+            if (opt)
+            {
+                return new Vector3Int(pos.x, pos.y - 1, 0);
+            }
+
+            return new Vector3Int(pos.x, pos.y + 1, 0);
+        }
+        private static bool canBePath(Vector3Int pos, Vector3Int lastPos)
+        {
+            if (tilemap.GetTile(pos).name != tileMapManager.tileName[(int)TileType.GRASS])
+            {
+                return false;
+            }
+
+            Vector3Int verifyPos = new Vector3Int(pos.x + 1, pos.y, 0);
+            if (verifyPos != lastPos && !isGrassOrBorder(verifyPos)) {
+                return false;
+            }
+
+            verifyPos.x -= 2;
+            if (verifyPos != lastPos && !isGrassOrBorder(verifyPos))
+            {
+                return false;
+            }
+
+            verifyPos.x += 1;
+            verifyPos.y += 1;
+            if (verifyPos != lastPos && !isGrassOrBorder(verifyPos))
+            {
+                return false;
+            }
+
+            verifyPos.y -= 2;
+            if (verifyPos != lastPos && !isGrassOrBorder(verifyPos))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool isGrassOrBorder(Vector3Int pos)
+        {
+            return tilemap.GetTile(pos).name == tileMapManager.tileName[(int)TileType.GRASS] 
+                    || tilemap.GetTile(pos).name == tileMapManager.tileName[(int)TileType.BORDER];
+        }
 
         public static List<Vector3> generateWaypoint(Vector3Int startPos, Tilemap tilemap)
         {
+            waypoints.Clear();
+
             WaypointManager.tilemap = tilemap;
             CalculateWaypoint(startPos);
             return waypoints;

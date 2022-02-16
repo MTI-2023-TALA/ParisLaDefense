@@ -15,8 +15,8 @@ public enum TileType : int
 public class TileMapManager : MonoBehaviour
 {
     [SerializeField] private Tilemap tileMap;
-    [SerializeField] private Tile[] tileList;
-    [SerializeField] private string[] tileName;
+    [SerializeField] public Tile[] tileList;
+    [SerializeField] public string[] tileName;
 
     public GameObject canoneer;
     public GameObject oilThrower;
