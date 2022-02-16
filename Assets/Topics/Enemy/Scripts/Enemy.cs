@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     private DataManager dataManager;
     public SpriteRenderer spriteRenderer;
     public SpriteRenderer healthBar;
+    public GameObject particleGameObject;
+
     private float healthScaleX;
     private float healthScaleY;
 
@@ -86,6 +88,7 @@ public class Enemy : MonoBehaviour
 
         if (life <= 0f)
         {
+            StartCoroutine(SpawnDeathParticles());
             dataManager.AddGold(gold);
             int randInt = Random.Range(0, 100);
             if (randInt <= manaDrop)
@@ -116,5 +119,15 @@ public class Enemy : MonoBehaviour
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         spriteRenderer.color = Color.white;
+    }
+
+    public IEnumerator SpawnDeathParticles()
+    {
+        GameObject spawnedParticleObject = Instantiate(particleGameObject, transform.position, Quaternion.identity);
+        ParticleSystem particleSystem = spawnedParticleObject.GetComponent<ParticleSystem>();
+
+        particleSystem.Play();
+        yield return new WaitForSeconds(0);        
+        Destroy(spawnedParticleObject);
     }
 }

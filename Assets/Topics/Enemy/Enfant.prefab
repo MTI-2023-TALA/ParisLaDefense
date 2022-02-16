@@ -107,6 +107,7 @@ MonoBehaviour:
   manaDrop: 10
   spriteRenderer: {fileID: 3621887764112024149}
   healthBar: {fileID: 745539036913662600}
+  particleGameObject: {fileID: 5771014466602589065, guid: 28a352881c8a9a348ab0cc3b32e26d24, type: 3}
 --- !u!61 &4373076308596196392
 BoxCollider2D:
   m_ObjectHideFlags: 0
