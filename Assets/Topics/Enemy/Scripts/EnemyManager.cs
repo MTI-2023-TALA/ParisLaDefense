@@ -88,6 +88,7 @@ public class EnemyManager : MonoBehaviour
         {
             int randomNumber = Random.Range(0, enemyList.Length);
             Enemy enemy = Instantiate(enemyList[randomNumber], startPosition, Quaternion.identity).GetComponent<Enemy>();
+            enemy.life += (int) waveNumber / 5f;
             enemy.Init(waypoints);
         }
 
