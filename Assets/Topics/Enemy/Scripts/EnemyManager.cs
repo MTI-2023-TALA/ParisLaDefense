@@ -33,7 +33,10 @@ public class EnemyManager : MonoBehaviour
         WaypointManager.tileMapManager = GameObject.Find(ObjectName.gameManager).GetComponent<TileMapManager>();
         WaypointManager.tilemap = this.tilemap;
 
-        this.startPosition = WaypointManager.resetMap(24, 16);
+        if (GameObject.Find(ObjectName.optionManager).GetComponent<OptionManager>().shouldGenerateMap)
+        {
+            this.startPosition = WaypointManager.resetMap(24, 16);
+        }
         waypoints = WaypointManager.generateWaypoint(startPosition, tilemap);
         waveManager = new WaveManager(waypoints, startPosition, enemyList);
     }
