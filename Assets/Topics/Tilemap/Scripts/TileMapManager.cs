@@ -68,11 +68,12 @@ public class TileMapManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A))
             {
-                SpawnCanoneer();
+                SpawnOilThrower();
             }
+
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z))
             {
-                SpawnOilThrower();
+                SpawnCanoneer();
             }
         }
 
