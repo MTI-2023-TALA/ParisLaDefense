@@ -79,11 +79,11 @@ public class TileMapManager : MonoBehaviour
 
         if (towerUIManager.isTowerUIUpdateActive())
         {
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z))
             {
                 UpgradeTurret(GetClosestTurret());
             }
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 SellTurret(GetClosestTurret());
             }
@@ -93,7 +93,6 @@ public class TileMapManager : MonoBehaviour
         {
             towerUIManager.removeTowerUI();
         }
-
     }
 
     private TileBase getTileBase(Vector3Int pos)
@@ -147,7 +146,6 @@ public class TileMapManager : MonoBehaviour
     {
         if (closestTurret != null)
         {
-            Debug.Log("ici");
             Turret turret = closestTurret.GetComponent<Turret>();
             int money = turret.CalculateUpgrade();
             if (dataManager.RemoveGold(money))

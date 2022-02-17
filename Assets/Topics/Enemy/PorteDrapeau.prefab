@@ -185,8 +185,8 @@ MonoBehaviour:
   tileMap: {fileID: 0}
   speed: 2
   life: 10
-  gold: 10
-  manaDrop: 50
+  gold: 13
+  manaDrop: 35
   spriteRenderer: {fileID: 6321530543675818159}
   healthBar: {fileID: 2065407177872529653}
   particleGameObject: {fileID: 5771014466602589065, guid: 28a352881c8a9a348ab0cc3b32e26d24, type: 3}

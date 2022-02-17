@@ -104,7 +104,7 @@ public class Turret : MonoBehaviour
 
     public int CalculateUpgrade()
     {
-        return cost + 20 * level;
+        return cost + level * 40;
     }
     void Shoot()
     {

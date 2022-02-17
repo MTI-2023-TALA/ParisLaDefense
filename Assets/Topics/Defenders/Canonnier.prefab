@@ -113,7 +113,7 @@ MonoBehaviour:
   fireRate: 1
   fireCountdown: 0
   damage: 1
-  cost: 50
+  cost: 45
   attacksAOE: 0
   level: 1
   bullet: {fileID: 4229383674311581117, guid: 80659fece1d0d514aa9702844a3b4c58, type: 3}

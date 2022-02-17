@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     private List<Vector3> waypoints;
     [SerializeField] private Tilemap tileMap;
 
-    [SerializeField] private float speed = 2f;
+    [SerializeField] public float speed = 2f;
     public float life = 2f;
     public int gold = 10;
     public int manaDrop = 10;

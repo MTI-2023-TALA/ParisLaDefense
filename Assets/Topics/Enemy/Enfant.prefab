@@ -101,10 +101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileMap: {fileID: 0}
-  speed: 4
-  life: 4
-  gold: 5
-  manaDrop: 10
+  speed: 3
+  life: 5
+  gold: 8
+  manaDrop: 18
   spriteRenderer: {fileID: 3621887764112024149}
   healthBar: {fileID: 745539036913662600}
   particleGameObject: {fileID: 5771014466602589065, guid: 28a352881c8a9a348ab0cc3b32e26d24, type: 3}
