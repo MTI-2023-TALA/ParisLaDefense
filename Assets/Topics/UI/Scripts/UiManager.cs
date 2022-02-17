@@ -43,6 +43,8 @@ public class UiManager : MonoBehaviour
     public ManaManager manaManager;
 
     public Button pauseButton;
+
+    public Button skillTreeBtn;
     public Button backToMainScreen;
     public Button pauseButtonFromPauseUI;
 
@@ -58,10 +60,29 @@ public class UiManager : MonoBehaviour
     private DataManager dataManager;
     private AudioSource audioSource;
 
+    public GameObject skillTreeUI;
+
+    private XpManager xpManager;
+
+    public Button moneyUpgrade;
+    public Text moneyLevel;
+    public Text moneyDesc;
+    public Button damageUpgrade;
+    public Text damageLevel;
+    public Text damageDesc;
+    public Button rangeUpgrade;
+    public Text rangeLevel;
+    public Text rangeDesc;
+    public Text availablePoints;
+
+    public Button skillTreeReplayButton;
+
+
     public void Start()
     {
         GameObject musicGameObject = GameObject.Find("BackgroundAudio");
         audioSource = musicGameObject.GetComponent<AudioSource>();
+        xpManager = GameObject.Find(ObjectName.optionManager).GetComponent<XpManager>();
     }
 
     public void Init(int wave, int maxWave, int gold, int life, int maxLife, int mana, int maxMana)
@@ -90,16 +111,23 @@ public class UiManager : MonoBehaviour
         pauseButton.onClick.AddListener(Pause);
         backToMainScreen.onClick.AddListener(GoToMainScreen);
         pauseButtonFromPauseUI.onClick.AddListener(Pause);
+        skillTreeBtn.onClick.AddListener(SkillTree);
 
         replayButton.onClick.AddListener(Replay);
         victoryReplayButton.onClick.AddListener(Replay);
         gameOverUI.SetActive(false);
         victoryUI.SetActive(false);
+        skillTreeUI.SetActive(false);
+
+        moneyUpgrade.onClick.AddListener(upgradeMoney);
+        damageUpgrade.onClick.AddListener(upgradeDamage);
+        rangeUpgrade.onClick.AddListener(upgradeRange);
+        skillTreeReplayButton.onClick.AddListener(SkillTree);
     }
 
     private void _setWaweUI(WaveManager waveManager)
     {
-        waveManager.textWave.text = waveManager.currentWave + "/" + waveManager.maxWave;   
+        waveManager.textWave.text = waveManager.currentWave + "/" + waveManager.maxWave;
     }
 
     public void updateWave(int newCurrentWave)
@@ -165,7 +193,8 @@ public class UiManager : MonoBehaviour
             pauseButton.GetComponentInChildren<Text>().text = "Reprendre";
             pauseUI.SetActive(true);
             dataManager.SetGameIsPaused(true);
-        } else
+        }
+        else
         {
             Time.timeScale = 1;
             pauseButton.GetComponentInChildren<Text>().text = "Pause";
@@ -173,6 +202,27 @@ public class UiManager : MonoBehaviour
             pauseUI.SetActive(false);
             dataManager.SetGameIsPaused(false);
         }
+    }
+
+    private void SkillTree()
+    {
+        if (Time.timeScale != 0)
+        {
+            Time.timeScale = 0;
+            audioSource.Pause();
+            skillTreeUI.SetActive(true);
+            dataManager.SetGameIsPaused(true);
+            UpdateSkillTreeUI();
+        }
+        else
+        {
+            Time.timeScale = 1;
+            audioSource.UnPause();
+            skillTreeUI.SetActive(false);
+            dataManager.SetGameIsPaused(false);
+        }
+
+
     }
 
     private void GoToMainScreen()
@@ -186,5 +236,49 @@ public class UiManager : MonoBehaviour
         levelText.text = "Level " + level;
         XpBar.value = progress;
         XpBar.maxValue = 1;
+    }
+
+    private void UpdateSkillTreeUI()
+    {
+        moneyLevel.text = xpManager.moneyLevel.ToString();
+        moneyDesc.text = "+ d'argent (+" + (5 * xpManager.moneyLevel) + "$)";
+
+        damageLevel.text = xpManager.damageLevel.ToString();
+        damageDesc.text = "+ de dégâts (+" + (2 * xpManager.damageLevel) + "%)";
+
+        rangeLevel.text = xpManager.rangeLevel.ToString();
+        rangeDesc.text = "+ de range (+" + (0.2 * xpManager.rangeLevel) + ")";
+
+        availablePoints.text = "Points disponibles: " + xpManager.availablePoint;
+    }
+
+    private void upgradeMoney()
+    {
+        if (xpManager.availablePoint > 0)
+        {
+            xpManager.availablePoint -= 1;
+            xpManager.moneyLevel += 1;
+            UpdateSkillTreeUI();
+        }
+    }
+
+    private void upgradeDamage()
+    {
+        if (xpManager.availablePoint > 0)
+        {
+            xpManager.availablePoint -= 1;
+            xpManager.damageLevel += 1;
+            UpdateSkillTreeUI();
+        }
+    }
+
+    private void upgradeRange()
+    {
+        if (xpManager.availablePoint > 0)
+        {
+            xpManager.availablePoint -= 1;
+            xpManager.rangeLevel += 1;
+            UpdateSkillTreeUI();
+        }
     }
 }

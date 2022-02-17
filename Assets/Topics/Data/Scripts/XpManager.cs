@@ -7,9 +7,12 @@ public class XpManager : MonoBehaviour
     private int level = 1;
     private int nextLevel = 0;
     private int xpRequired = 10;
-    private int availablePoint = 0;
-
+    public int availablePoint = 0;
+    public float moneyLevel = 0;
+    public float damageLevel = 0;
+    public float rangeLevel = 0;
     private UiManager uiManager;
+
 
     // Start is called before the first frame update
     void Start()

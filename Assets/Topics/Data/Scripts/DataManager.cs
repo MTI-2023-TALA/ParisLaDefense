@@ -17,11 +17,16 @@ public class DataManager : MonoBehaviour
 
     [SerializeField] private UiManager uiManager;
 
+    private XpManager xpManager;
+
     public void Start()
     {
+        xpManager = GameObject.Find(ObjectName.optionManager).GetComponent<XpManager>();
+        gold += (int)xpManager.moneyLevel * 5;
+
         uiManager.Init(wave, maxWave, gold, life, maxLife, mana, maxMana);
         this.gameIsPaused = false;
-        GameObject.Find(ObjectName.optionManager).GetComponent<XpManager>().updateUI();
+        xpManager.updateUI();
     }
 
     public void SetGameIsPaused(bool isPaused)
@@ -42,8 +47,8 @@ public class DataManager : MonoBehaviour
         if (life == 0)
         {
             return;
-        } 
-        
+        }
+
         life -= 1;
         uiManager.updateLife(life);
     }
@@ -54,7 +59,7 @@ public class DataManager : MonoBehaviour
         uiManager.updateGold(this.gold);
     }
 
-    public bool RemoveGold(int gold) 
+    public bool RemoveGold(int gold)
     {
         if (this.gold >= gold)
         {
@@ -83,11 +88,11 @@ public class DataManager : MonoBehaviour
 
     public void AddMana()
     {
-        if(mana < maxMana)
+        if (mana < maxMana)
         {
             mana += 1;
             uiManager.updateMana(mana);
         }
-        
+
     }
 }

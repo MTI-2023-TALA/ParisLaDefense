@@ -22,9 +22,12 @@ public class Turret : MonoBehaviour
     public GameObject bullet;
     public AudioSource audioSource;
 
+    private XpManager xpManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        xpManager = GameObject.Find(ObjectName.optionManager).GetComponent<XpManager>();
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -43,7 +46,7 @@ public class Turret : MonoBehaviour
             }
         }
 
-        if (closestEnemy != null && shortestDist <= range)
+        if (closestEnemy != null && shortestDist <= range + xpManager.rangeLevel * 0.02f)
         {
             target = closestEnemy.transform;
         }
@@ -107,6 +110,6 @@ public class Turret : MonoBehaviour
     {
         Bullet bulletSent = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
         audioSource.Play();
-        bulletSent.Init(target, damage, attacksAOE);
+        bulletSent.Init(target, damage + (float)(xpManager.damageLevel * damage * 0.02), attacksAOE);
     }
 }
