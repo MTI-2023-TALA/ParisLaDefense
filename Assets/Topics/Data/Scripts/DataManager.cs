@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour
     {
         uiManager.Init(wave, maxWave, gold, life, maxLife, mana, maxMana);
         this.gameIsPaused = false;
+        GameObject.Find(ObjectName.optionManager).GetComponent<XpManager>().updateUI();
     }
 
     public void SetGameIsPaused(bool isPaused)

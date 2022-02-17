@@ -671,6 +671,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 508802893561190918, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1041139478988550619, guid: b8d5c774d16735d498e507681504b01a, type: 3}
       propertyPath: m_Text
       value: Dommage !
@@ -690,6 +730,10 @@ PrefabInstance:
     - target: {fileID: 6402511207864723965, guid: b8d5c774d16735d498e507681504b01a, type: 3}
       propertyPath: m_sendNavigationEvents
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650082109949731578, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6789884807920002731, guid: b8d5c774d16735d498e507681504b01a, type: 3}
       propertyPath: m_Text
@@ -821,6 +865,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7275902277150058117, guid: b8d5c774d16735d498e507681504b01a, type: 3}
       propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138525694602526654, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494645217027837183, guid: b8d5c774d16735d498e507681504b01a, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8548755380260918863, guid: b8d5c774d16735d498e507681504b01a, type: 3}

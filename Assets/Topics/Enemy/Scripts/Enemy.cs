@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     private float healthScaleX;
     private float healthScaleY;
 
+    private XpManager xpManager;
+
     private int index = 0;
 
     public void Init(List<Vector3> waypoints)
@@ -30,6 +32,7 @@ public class Enemy : MonoBehaviour
         // Get waypoint to follow
         this.waypoints = waypoints;
         dataManager = GameObject.Find(ObjectName.gameManager).GetComponent<DataManager>();
+        xpManager = GameObject.Find(ObjectName.optionManager).GetComponent<XpManager>();
         maxLife = life;
         healthScaleX = healthBar.transform.localScale.x;
         healthScaleY = healthBar.transform.localScale.y;
@@ -96,6 +99,8 @@ public class Enemy : MonoBehaviour
             int randInt = Random.Range(0, 100);
             if (randInt <= manaDrop)
                 dataManager.AddMana();
+
+            xpManager.addXp();
             Destroy(gameObject);
         }
     }

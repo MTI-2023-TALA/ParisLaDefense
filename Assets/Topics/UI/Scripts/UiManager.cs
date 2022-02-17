@@ -52,6 +52,9 @@ public class UiManager : MonoBehaviour
     public GameObject victoryUI;
     public GameObject pauseUI;
 
+    public Slider XpBar;
+    public Text levelText;
+
     private DataManager dataManager;
     private AudioSource audioSource;
 
@@ -175,5 +178,13 @@ public class UiManager : MonoBehaviour
     private void GoToMainScreen()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void UpdateXpUi(float progress, int level)
+    {
+        Debug.Log("Hello !");
+        levelText.text = "Level " + level;
+        XpBar.value = progress;
+        XpBar.maxValue = 1;
     }
 }
