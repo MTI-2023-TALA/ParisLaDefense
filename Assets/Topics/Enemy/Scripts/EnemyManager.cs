@@ -102,7 +102,11 @@ public class EnemyManager : MonoBehaviour
                     SpawnEnemy();
                     yield return new WaitForSeconds(timeBetweenEnemy);
                 }
-                timeBetweenEnemy -= 0.01f;
+
+                if (timeBetweenEnemy > 0)
+                {
+                    timeBetweenEnemy -= 0.01f;
+                }
                 waveNumber++;
             } 
         }
