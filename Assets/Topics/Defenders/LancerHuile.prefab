@@ -109,11 +109,11 @@ MonoBehaviour:
   - {r: 1, g: 0.61006284, b: 0.61006284, a: 1}
   - {r: 1, g: 0.55345905, b: 0.7794657, a: 1}
   - {r: 0.78117305, g: 0.64779866, b: 1, a: 1}
-  range: 2.5
-  fireRate: 0.33
+  range: 1.5
+  fireRate: 0.25
   fireCountdown: 0
   damage: 1
-  cost: 80
+  cost: 70
   attacksAOE: 1
   level: 1
   bullet: {fileID: 85434960702929041, guid: a484369c7e6b28e4bbc356c6436aa786, type: 3}

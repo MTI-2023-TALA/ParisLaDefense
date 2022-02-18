@@ -1573,6 +1573,7 @@ MonoBehaviour:
   victoryUI: {fileID: 1771927046}
   waypoints: []
   waveCountdown: 5
+  beginMapCrossMark: {fileID: 1111607928737717439, guid: 18473547107c02c4884c75aea398b7c5, type: 3}
 --- !u!114 &1938850000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23216,6 +23217,14 @@ PrefabInstance:
     - target: {fileID: 284756327788548330, guid: decd3e3a52c039843a78318d773d98fd, type: 3}
       propertyPath: m_Name
       value: UiTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 284756327895482791, guid: decd3e3a52c039843a78318d773d98fd, type: 3}
+      propertyPath: m_Text
+      value: 45$
+      objectReference: {fileID: 0}
+    - target: {fileID: 284756328018573050, guid: decd3e3a52c039843a78318d773d98fd, type: 3}
+      propertyPath: m_Text
+      value: 70$
       objectReference: {fileID: 0}
     - target: {fileID: 284756328114877546, guid: decd3e3a52c039843a78318d773d98fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

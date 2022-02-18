@@ -27,6 +27,7 @@ public class EnemyManager : MonoBehaviour
 
     private float countdown = 2f;
     [SerializeField] private float waveCountdown = 5f;
+    public GameObject beginMapCrossMark;
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class EnemyManager : MonoBehaviour
         }
         waypoints = WaypointManager.generateWaypoint(startPosition, tilemap);
         waveManager = new WaveManager(waypoints, startPosition, enemyList);
+        Instantiate(beginMapCrossMark, waypoints[0], Quaternion.identity);
     }
 
     private void Update()
@@ -88,6 +90,8 @@ public class EnemyManager : MonoBehaviour
         {
             int randomNumber = Random.Range(0, enemyList.Length);
             Enemy enemy = Instantiate(enemyList[randomNumber], startPosition, Quaternion.identity).GetComponent<Enemy>();
+            enemy.life += waveNumber / 5f;
+            enemy.speed += waveNumber / 20f;
             enemy.Init(waypoints);
         }
 

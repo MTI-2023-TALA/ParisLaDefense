@@ -232,7 +232,6 @@ public class UiManager : MonoBehaviour
 
     public void UpdateXpUi(float progress, int level)
     {
-        Debug.Log("Hello !");
         levelText.text = "Level " + level;
         XpBar.value = progress;
         XpBar.maxValue = 1;
